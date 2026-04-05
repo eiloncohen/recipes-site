@@ -25,7 +25,7 @@ const Recipe = mongoose.model('Recipe', recipeSchema);
 
 // ===== Middleware =====
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
 // ===== GET /recipes =====
 app.get('/recipes', async (req, res) => {
@@ -120,7 +120,7 @@ app.delete('/recipes/:id', async (req, res) => {
 
 // ===== Catch-all =====
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
