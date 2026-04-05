@@ -3,88 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>המטבח שלי 🍳</title>
+  <title>המטבח שלי — אוסף מתכונים</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;900&family=Noto+Serif+Hebrew:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="header-logo">
-        <span class="logo-icon">🍳</span>
-        <div>
-          <h1 class="site-title">המטבח שלי</h1>
-          <p class="site-subtitle">אוסף המתכונים האישי שלי</p>
-        </div>
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-bg">
+      <div class="hero-grain"></div>
+      <div class="hero-vignette"></div>
+    </div>
+    <nav class="nav">
+      <div class="nav-logo">
+        <span class="nav-ornament">✦</span>
+        <span class="nav-name">המטבח שלי</span>
+        <span class="nav-ornament">✦</span>
       </div>
-      <button class="btn-add-recipe" id="btnOpenForm">
-        <span>+ מתכון חדש</span>
+      <button class="btn-add" id="btnOpenForm">
+        <span class="btn-add-icon">+</span>
+        <span>מתכון חדש</span>
       </button>
+    </nav>
+    <div class="hero-content">
+      <p class="hero-eyebrow">אוסף מתכונים אישי</p>
+      <h1 class="hero-title">אמנות<br/><em>הבישול</em></h1>
+      <p class="hero-sub">מתכונים שנאספו באהבה, מוכנים להתגלות</p>
+      <div class="hero-divider"><span></span><span class="hero-divider-icon">❧</span><span></span></div>
     </div>
   </header>
 
-  <!-- Search & Filter Bar -->
+  <!-- ===== TOOLBAR ===== -->
   <div class="toolbar">
     <div class="toolbar-inner">
       <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="חפש מתכון..." />
+        <svg class="search-icon" viewBox="0 0 20 20" fill="none"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13l3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="חפש מתכון, מצרך..." />
       </div>
-      <div class="category-tabs" id="categoryTabs">
-        <button class="cat-tab active" data-cat="הכל">הכל</button>
-        <button class="cat-tab" data-cat="ארוחת בוקר">ארוחת בוקר</button>
-        <button class="cat-tab" data-cat="עיקרית">עיקרית</button>
-        <button class="cat-tab" data-cat="מרק">מרק</button>
-        <button class="cat-tab" data-cat="סלט">סלט</button>
-        <button class="cat-tab" data-cat="קינוח">קינוח</button>
-        <button class="cat-tab" data-cat="אפייה">אפייה</button>
-        <button class="cat-tab" data-cat="כללי">כללי</button>
+      <div class="cat-scroll">
+        <div class="category-tabs" id="categoryTabs">
+          <button class="cat-tab active" data-cat="הכל">הכל</button>
+          <button class="cat-tab" data-cat="ארוחת בוקר">בוקר</button>
+          <button class="cat-tab" data-cat="עיקרית">עיקרית</button>
+          <button class="cat-tab" data-cat="מרק">מרק</button>
+          <button class="cat-tab" data-cat="סלט">סלט</button>
+          <button class="cat-tab" data-cat="קינוח">קינוח</button>
+          <button class="cat-tab" data-cat="אפייה">אפייה</button>
+          <button class="cat-tab" data-cat="כללי">כללי</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <div id="recipesGrid" class="recipes-grid">
-      <!-- Cards injected by JS -->
-    </div>
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+    <div id="recipesGrid" class="recipes-grid"></div>
     <div id="emptyState" class="empty-state" style="display:none">
-      <div class="empty-icon">👨‍🍳</div>
-      <h2>עדיין אין מתכונים</h2>
-      <p>לחץ על "מתכון חדש" כדי להתחיל את האוסף שלך</p>
+      <div class="empty-icon">🍽</div>
+      <h2>המטבח ממתין</h2>
+      <p>הוסף את המתכון הראשון שלך ותתחיל את האוסף</p>
+      <button class="btn-empty" onclick="document.getElementById('btnOpenForm').click()">+ הוסף מתכון</button>
     </div>
     <div id="loadingState" class="loading-state">
-      <div class="spinner"></div>
-      <p>טוען מתכונים...</p>
+      <div class="loader">
+        <span></span><span></span><span></span>
+      </div>
+      <p>טוען את המתכונים...</p>
     </div>
   </main>
 
-  <!-- Modal Overlay -->
+  <!-- ===== RECIPE MODAL ===== -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="recipeModal">
       <button class="modal-close" id="btnCloseModal">✕</button>
-      <div class="modal-body" id="modalBody">
-        <!-- Content injected by JS -->
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
-  <!-- Add/Edit Recipe Drawer -->
+  <!-- ===== FORM DRAWER ===== -->
   <div class="drawer-overlay" id="drawerOverlay">
     <div class="drawer" id="formDrawer">
       <div class="drawer-header">
-        <h2 id="formTitle">הוספת מתכון חדש</h2>
+        <div class="drawer-title-wrap">
+          <span class="drawer-ornament">✦</span>
+          <h2 id="formTitle">מתכון חדש</h2>
+        </div>
         <button class="drawer-close" id="btnCloseDrawer">✕</button>
       </div>
       <form class="recipe-form" id="recipeForm" onsubmit="return false;">
         <input type="hidden" id="editId" />
 
         <div class="form-group">
-          <label for="fTitle">שם המתכון *</label>
-          <input type="text" id="fTitle" placeholder="למשל: פסטה ברוטב עגבניות" required />
+          <label for="fTitle">שם המתכון <span class="required">*</span></label>
+          <input type="text" id="fTitle" placeholder="למשל: ריזוטו פטריות עם טרגון" required />
         </div>
 
         <div class="form-row">
@@ -102,34 +115,36 @@
           </div>
           <div class="form-group">
             <label for="fPrepTime">זמן הכנה</label>
-            <input type="text" id="fPrepTime" placeholder="למשל: 30 דקות" />
+            <input type="text" id="fPrepTime" placeholder="45 דקות" />
           </div>
         </div>
 
         <div class="form-group">
-          <label for="fDescription">תיאור קצר</label>
-          <input type="text" id="fDescription" placeholder="תיאור קצר ומפתה..." />
+          <label for="fDescription">תיאור</label>
+          <input type="text" id="fDescription" placeholder="תיאור קצר ומפתה של המנה..." />
         </div>
 
         <div class="form-group">
-          <label for="fIngredients">מצרכים * <small>(כל מצרך בשורה נפרדת)</small></label>
-          <textarea id="fIngredients" rows="6" placeholder="חבילת פסטה&#10;2 עגבניות&#10;שן שום&#10;מלח ופלפל" required></textarea>
+          <label for="fIngredients">מצרכים <span class="required">*</span> <small>— כל מצרך בשורה נפרדת</small></label>
+          <textarea id="fIngredients" rows="6" placeholder="250 גרם חמאה&#10;3 ביצים&#10;כוס קמח&#10;קורט מלח ים" required></textarea>
         </div>
 
         <div class="form-group">
-          <label for="fInstructions">אופן הכנה * <small>(כל שלב בשורה נפרדת)</small></label>
-          <textarea id="fInstructions" rows="8" placeholder="מבשלים את הפסטה לפי ההוראות&#10;מטגנים את השום בשמן&#10;מוסיפים את העגבניות&#10;מערבבים עם הפסטה" required></textarea>
+          <label for="fInstructions">אופן הכנה <span class="required">*</span> <small>— כל שלב בשורה נפרדת</small></label>
+          <textarea id="fInstructions" rows="8" placeholder="מחממים את התנור ל-180 מעלות&#10;מערבבים את החומרים היבשים&#10;מוסיפים את הביצים בהדרגה" required></textarea>
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn-secondary" id="btnCancelForm">ביטול</button>
-          <button type="submit" class="btn-primary" id="btnSubmitForm">💾 שמור מתכון</button>
+          <button type="button" class="btn-cancel" id="btnCancelForm">ביטול</button>
+          <button type="submit" class="btn-save" id="btnSubmitForm">
+            <span class="btn-save-icon">✦</span> שמור מתכון
+          </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- ===== TOAST ===== -->
   <div class="toast" id="toast"></div>
 
   <script src="script.js"></script>
